@@ -3,15 +3,16 @@ import pandas as pd
 import numpy as np
 #import matplotlib.pyplot as plt
 import plotly.express as px
-import random
+
 
 #ML libraries
-import tensorflow as tf
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -19,17 +20,17 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from sklearn.svm import LinearSVC
-from sklearn.pipeline import Pipeline
 
 #Metrics Libraries
 from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score
+from sklearn import metrics
+from sklearn.metrics import classification_report
+from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
-
-
+from sklearn.metrics import plot_confusion_matrix
 
 df = pd.read_csv('credit_fraud_detection.csv', 
                  header = 0
@@ -129,3 +130,38 @@ scaled_features_train_df = pd.DataFrame(scaled_features_train, index=X_train.ind
 transformer = RobustScaler().fit(X_test)
 scaled_features_test = transformer.transform(X_test)
 scaled_features_test_df= pd.DataFrame(scaled_features_test, index=X_test.index, columns=X_test.columns)
+
+
+#creating the objects
+logreg_cv = LogisticRegression(solver='liblinear',random_state=123)
+dt_cv=DecisionTreeClassifier(random_state=123)
+knn_cv=KNeighborsClassifier()
+#svc_cv=SVC(kernel='linear',random_state=123)
+nb_cv=GaussianNB()
+rf_cv=RandomForestClassifier(random_state=123)
+cv_dict = {0: 'Logistic Regression', 1: 'Decision Tree',2:'KNN',3:'Naive Bayes',4:'Random Forest'}
+cv_models=[logreg_cv,dt_cv,knn_cv,nb_cv,rf_cv] # svc_cv
+
+
+for i,model in enumerate(cv_models):
+    print("{} Test Accuracy: {}".format(cv_dict[i],cross_val_score(model, scaled_features_train_df, y_train, cv=10, scoring ='f1_weighted').mean()))
+
+
+
+#Predict with the selected best parameter
+#y_pred= scaled_features_test_df
+rf=RandomForestClassifier(random_state=123)
+rf.fit(scaled_features_train_df, y_train)
+
+y_pred= rf.predict(scaled_features_test_df)
+
+#Plotting confusion matrix
+cm = metrics.confusion_matrix(y_test, y_pred)
+plot_confusion_matrix(rf, scaled_features_test_df, y_test)
+
+
+
+#Classification metrics
+print(classification_report(y_test, y_pred, target_names=['Not Fraud','Fraud']))
+
+# The result are very good, quit impressive
