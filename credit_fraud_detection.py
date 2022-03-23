@@ -1,8 +1,7 @@
 # import packages
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
-import plotly.express as px
+import pickle
 
 
 #ML libraries
@@ -164,4 +163,13 @@ plot_confusion_matrix(rf, scaled_features_test_df, y_test)
 #Classification metrics
 print(classification_report(y_test, y_pred, target_names=['Not Fraud','Fraud']))
 
-# The result are very good, quit impressive
+# The result are quit good
+
+# saving the model
+#save the word index
+# with open('credit_fraud_model.pkl', 'wb') as f:
+#     pickle.dump(rf, f)
+
+#load the word index
+# with open('credit_fraud_model.pkl', 'rb') as f:
+#     loaded_model = pickle.load(f)
