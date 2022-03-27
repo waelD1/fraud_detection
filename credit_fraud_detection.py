@@ -1,4 +1,4 @@
-# import packages
+# data manipulation packages
 import pandas as pd
 import numpy as np
 import pickle
@@ -11,14 +11,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.preprocessing import RobustScaler
 
 #Metrics Libraries
 from sklearn import metrics
@@ -27,9 +25,12 @@ from sklearn.model_selection import cross_val_score
 from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import plot_confusion_matrix
+
+
+#Graphic Libraries
+import plotly.express as px
+
 
 df = pd.read_csv('credit_fraud_detection.csv', 
                  header = 0
@@ -118,8 +119,6 @@ y = new_df['isFraud']
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
 
 # Creating Scaled features
-from sklearn.preprocessing import RobustScaler
-
 # For the training set
 transformer = RobustScaler().fit(X_train)
 scaled_features_train = transformer.transform(X_train)
