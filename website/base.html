@@ -30,7 +30,7 @@
 
   <!--Displaying the dropdown lists-->
 <div class = 'container'>
-  <form action = '/' method="post">
+  <form action = '/result' method="post">
    
                 <!-- Type of payment-->
                   <div class="row">
@@ -38,7 +38,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <div class="card-title">Type of model</div>
+                                <div class="card-title">Type of payment</div>
                                   <select name="type_payment" id="type_of_payment" required="required"> 
                                       {% for elem in type_of_payment %} 
                                         <option value='{{ elem }}'>{{elem}}</option> 
@@ -115,12 +115,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">Date of the transaction</div>
-                                <input type="datetime-local" name="Registration_date" id="Dep_Time" required="required">
+                                <input type="datetime-local" name="transaction_date" id="Dep_Time" required="required">
                             </div>
                         </div>
                     </div>
              
 </div>
+</div>
 
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary" value='submit'>SUBMIT</button>
+                    </div>
 </body>
 </html>

@@ -129,6 +129,10 @@ transformer = RobustScaler().fit(X_test)
 scaled_features_test = transformer.transform(X_test)
 scaled_features_test_df= pd.DataFrame(scaled_features_test, index=X_test.index, columns=X_test.columns)
 
+# Saving the scaler
+# with open('scaler_model.pkl', 'wb') as f:
+#   pickle.dump(transformer_train, f)
+
 
 #creating the objects
 logreg_cv = LogisticRegression(solver='liblinear',random_state=123)
