@@ -35,8 +35,8 @@ async def prediction(request : Request,
         balance_new_receiver = balance_new_receiver
         transaction_date_days = (transaction_date.day)*24
 
-        print(transaction_date)
-        print(transaction_date_days)
+        # print(transaction_date)
+        # print(transaction_date_days)
 
 
 
@@ -101,6 +101,7 @@ async def prediction(request : Request,
         with open('credit_fraud_model.pkl', 'rb') as f:
             loaded_model = pickle.load(f)
 
+        # We can now make some prediction
         prediction = int(loaded_model.predict(scaled_data))
         if prediction == 1:
             result_pred = 'Fraudulent'
