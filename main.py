@@ -33,7 +33,7 @@ async def prediction(request : Request,
         balance_new_sender = balance_new_sender
         balance_old_receiver = balance_old_receiver
         balance_new_receiver = balance_new_receiver
-        
+
         # Convert days into hour for the model
         transaction_date_days = (transaction_date.day)*24
 
@@ -99,7 +99,7 @@ async def prediction(request : Request,
         scaled_data = pd.DataFrame(scaled_features, index=data.index, columns=data.columns)
 
         
-        #load model
+        #loading the model
         with open('credit_fraud_model.pkl', 'rb') as f:
             loaded_model = pickle.load(f)
 
