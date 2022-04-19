@@ -148,7 +148,7 @@ cv_models=[logreg_cv,dt_cv,knn_cv,nb_cv,rf_cv] # svc_cv
 for i,model in enumerate(cv_models):
     print("{} Test Accuracy: {}".format(cv_dict[i],cross_val_score(model, scaled_features_train_df, y_train, cv=10, scoring ='f1_weighted').mean()))
 
-# We choose the random forest model becaus it has the best performance
+# We choose the random forest model because it has the best performance
 
 
 #Predict with the selected best parameter
