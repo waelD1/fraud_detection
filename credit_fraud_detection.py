@@ -134,7 +134,7 @@ scaled_features_test_df= pd.DataFrame(scaled_features_test, index=X_test.index, 
 #   pickle.dump(transformer_train, f)
 
 
-#creating the objects
+#creating the objects to compare the performances of all these different models
 logreg_cv = LogisticRegression(solver='liblinear',random_state=123)
 dt_cv=DecisionTreeClassifier(random_state=123)
 knn_cv=KNeighborsClassifier()
@@ -148,6 +148,7 @@ cv_models=[logreg_cv,dt_cv,knn_cv,nb_cv,rf_cv] # svc_cv
 for i,model in enumerate(cv_models):
     print("{} Test Accuracy: {}".format(cv_dict[i],cross_val_score(model, scaled_features_train_df, y_train, cv=10, scoring ='f1_weighted').mean()))
 
+# We choose the random forest model becaus it has the best performance
 
 
 #Predict with the selected best parameter
@@ -169,10 +170,9 @@ print(classification_report(y_test, y_pred, target_names=['Not Fraud','Fraud']))
 # The result are quit good
 
 # saving the model
-#save the word index
 # with open('credit_fraud_model.pkl', 'wb') as f:
 #     pickle.dump(rf, f)
 
-#load the word index
+#loading the model
 # with open('credit_fraud_model.pkl', 'rb') as f:
 #     loaded_model = pickle.load(f)
