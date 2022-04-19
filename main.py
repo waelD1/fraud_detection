@@ -33,6 +33,8 @@ async def prediction(request : Request,
         balance_new_sender = balance_new_sender
         balance_old_receiver = balance_old_receiver
         balance_new_receiver = balance_new_receiver
+        
+        # Convert days into hour for the model
         transaction_date_days = (transaction_date.day)*24
 
         # print(transaction_date)
