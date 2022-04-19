@@ -1,4 +1,4 @@
-# fraud_detection
+# Fraud Detection App
 Financial Fraud Detection
 
 Created an application using FastAPI to predict if a transaction is fraudulent. The application takes into account the means of transfer (cash-in, cash-out, transfer), and also the amount on the credit and debit accounts after the transactions in order to determine if there is fraud.
